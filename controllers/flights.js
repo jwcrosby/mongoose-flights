@@ -42,12 +42,12 @@ function create(req, res) {
     console.log(flight)
 
     //And save it to the database
-    // flight.save(function(err) {
-    //     /* Error handling - If something goes wrong, redirect back to
-    //     '/flights/new' so they can try again */
-    //     if (err) return res.redirect('/flights/new')
-    //     /* Redirect - Otherwise, redirect back to "/flights" */
-    //     res.redirect('/flights')
-    // })
+    flight.save(function(err) {
+        /* Error handling - If something goes wrong, redirect back to
+        '/flights/new' so they can try again */
+        if (err) return res.redirect('/flights/new')
+        /* Redirect - Otherwise, redirect back to "/flights" */
+        res.redirect('/flights')
+    })
 
 }
