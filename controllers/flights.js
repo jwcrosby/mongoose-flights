@@ -6,7 +6,7 @@ export {
 }
 
 function index(req, res) {
-    Movie.find({}, function (err, flights) {
+    Flight.find({}, function (err, flights) {
 
         res.render('flights/index', {
             err: err,
