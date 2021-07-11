@@ -10,7 +10,7 @@ router.get('/:id', flightsCtrl.show)
 
 router.post('/', flightsCtrl.create)
 
-router.post('/:id/reviews', flightsCtrl.createTicket)
+router.post('/:id/tickets', flightsCtrl.createTicket)
 
 export { 
   router

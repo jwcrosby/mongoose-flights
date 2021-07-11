@@ -70,8 +70,13 @@ function createTicket(req, res) {
     //Find and return a flight based on id tag established in the route
     Flight.findById(req.params.id, function(err, flight) {
 
+        //Push the full req.body into the flight's tickets array parameter
         flight.tickets.push(req.body)
+        
+        //Then save the update to the flight
         flight.save(function(err) {
+
+            //Then redirect
             res.redirect(`/flights/${flight._id}`)
         })
     })
