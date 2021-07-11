@@ -4,6 +4,8 @@ export {
     index,
     newFlight as new,
     create,
+    show,
+    createTicket
 }
 
 function index(req, res) {
@@ -34,7 +36,6 @@ function create(req, res) {
         if (req.body[key] === '') delete req.body[key]
     }
 
-
     //Then create a new document/record
     const flight = new Flight(req.body)
 
@@ -50,4 +51,28 @@ function create(req, res) {
         res.redirect('/flights')
     })
 
+}
+
+function show(req, res) {
+    //Find and return a flight based on id tag established in the route
+    Flight.findById(req.params.id, function(err, flight) {
+
+        //Then render the record found 
+        res.render("flights/show", {
+            err: err,
+            flight: flight,
+            title: "Flight Detail"
+        }) 
+    })
+}
+
+function createTicket(req, res) {
+    //Find and return a flight based on id tag established in the route
+    Flight.findById(req.params.id, function(err, flight) {
+
+        flight.tickets.push(req.body)
+        flight.save(function(err) {
+            res.redirect(`/flights/${flight._id}`)
+        })
+    })
 }
