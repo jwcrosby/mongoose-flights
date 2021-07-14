@@ -19,6 +19,16 @@ const ticketsSchema = new Schema({
     timestamps: true
 })
 
+function addOneYear() {
+    //Get the current date
+    const today = new Date()
+
+    const futureYear = today.getFullYear() + 1
+
+    today.setFullYear(futureYear)
+
+    return today
+}
 
 // Define the schema/blueprint for a "flight"
 const flightSchema = new Schema({
@@ -41,7 +51,20 @@ const flightSchema = new Schema({
     departs: {
         type: Date, 
         required: false, 
-        // default: one year from created
+        default: function() {
+            //Default value is one year from date created
+            //Get the current date
+            const today = new Date()
+
+            //Get the current year plus 1
+            const futureYear = today.getFullYear() + 1
+        
+            //Set the year of "today" to be equal to the futureYear
+            today.setFullYear(futureYear)
+        
+            //Return the updated today
+            return today
+        }
     },
     tickets: [ticketsSchema]
 }, 
