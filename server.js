@@ -36,7 +36,7 @@ app.use(
 
 app.use('/', indexRouter)
 app.use('/flights', flightsRouter)
-app.use('/flights', destinationRouter)
+app.use('/destinations', destinationRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
