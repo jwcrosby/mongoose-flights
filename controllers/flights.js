@@ -2,15 +2,16 @@ import { Flight } from "../models/flight.js"
 
 export {
     index,
+    show,
     newFlight as new,
     create,
-    show,
-    createTicket
+    createTicket,
+    addDestinationToFlight
 }
 
 function index(req, res) {
     Flight.find({}, function (err, flights) {
-
+        
         res.render('flights/index', {
             err: err,
             flights: flights,
@@ -18,6 +19,28 @@ function index(req, res) {
         })
     })
 }
+
+function show(req, res) {
+    //Find and return a flight based on id tag established in the route
+    Flight.findById(req.params.id)
+    //Populate?
+    .populate("destinations")
+    //Execute?
+    .exec(function(err, flight) {
+        //Find all of the destinations that are not already attached to the flight found above
+        Performer.find({_id: {$nin: flight.destinations}}, function(err, destinationsNotAttached) {
+
+            //Then render the flight and th
+            res.render("flights/show", {
+                err: err,
+                flight: flight,
+                title: "Flight Detail",
+                destinationsNotAttached: destinationsNotAttached
+            }) 
+        })
+    }) 
+}
+
 
 function newFlight(req, res) {
     // Render 'flights/new'
@@ -53,19 +76,6 @@ function create(req, res) {
 
 }
 
-function show(req, res) {
-    //Find and return a flight based on id tag established in the route
-    Flight.findById(req.params.id, function(err, flight) {
-
-        //Then render the record found 
-        res.render("flights/show", {
-            err: err,
-            flight: flight,
-            title: "Flight Detail"
-        }) 
-    })
-}
-
 function createTicket(req, res) {
     //Find and return a flight based on id tag established in the route
     Flight.findById(req.params.id, function(err, flight) {
@@ -80,4 +90,8 @@ function createTicket(req, res) {
             res.redirect(`/flights/${flight._id}`)
         })
     })
+}
+
+function addDestinationToFlight() {
+        console.log(`do it punk!`)
 }

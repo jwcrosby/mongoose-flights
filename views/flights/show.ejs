@@ -58,6 +58,23 @@
     <% } else { %>
         <h3>No Tickets Yet</h3>
     <% } %>
+
+    <form
+    id="add-perf-to-cast"
+    action="/movies/<%= movie._id %>/destinations"
+    method="POST"
+    >
+    <select name="performerId">
+        <% perfsNotInCast.forEach(performer => { %>
+        <option value="<%= performer._id %>"><%= performer.name %></option>
+        <% }) %>
+    </select>
+    <button type="submit">Add to Cast</button>
+    </form>
+
+
+
+
 </main>
 
 <%- include('../partials/footer') %>
