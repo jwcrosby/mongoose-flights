@@ -1,4 +1,5 @@
 import { Flight } from "../models/flight.js"
+import { Destination } from "../models/destination.js"
 
 export {
     index,
@@ -28,7 +29,7 @@ function show(req, res) {
     //Execute?
     .exec(function(err, flight) {
         //Find all of the destinations that are not already attached to the flight found above
-        Performer.find({_id: {$nin: flight.destinations}}, function(err, destinationsNotAttached) {
+        Destination.find({_id: {$nin: flight.destinations}}, function(err, destinationsNotAttached) {
 
             //Then render the flight and th
             res.render("flights/show", {
