@@ -7,7 +7,8 @@ export {
     newFlight as new,
     create,
     createTicket,
-    addDestinationToFlight
+    addDestinationToFlight,
+    deleteDestinationFromFlight
 }
 
 function index(req, res) {
@@ -103,4 +104,8 @@ function addDestinationToFlight(req, res) {
             res.redirect(`/flights/${flight._id}`)
         })
     })
+}
+
+function deleteDestinationFromFlight(req, res) {
+    console.log("backup needed")
 }

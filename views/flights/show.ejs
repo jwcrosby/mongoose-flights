@@ -20,7 +20,7 @@
     <h2>Destinations</h2>
 
     <h3>Add Destinations</h3>
-
+    <% //Add Destinations form %>
     <form
     id="add-perf-to-cast"
     action="/flights/<%= flight._id %>/destinations"
@@ -33,19 +33,37 @@
         </select>
 
         <button type="submit">Add to Flight</button>
-
     </form>
 
+    <% //If there are destinations, show them. Otherwise, show a message %>
     <% if (flight.destinations.length) { %>
 
         <ul>
             <% flight.destinations.forEach(destination => { %>
+                
             <li>
                 <%= destination.airport %>
+                
+                <% //Delete button logic %>
+                <form 
+                action="/flights/<%= flight._id %>/destinations/<%= destination._id %>?_method=DELETE"
+                class="delete-form"
+                method="POST"
+                >
+                <button type="submit">X</button>
+                </form>
+
+
+
+
+
+
+
             </li>
             <% }) %>
         </ul>
     <% } else { %>
+        <% // Otherwise, show a message %>
         <h4>No Destinations Added</h4>
     <% } %>
 
@@ -53,7 +71,7 @@
     <h2>Tickets</h2>
 
     <h3>Add Tickets</h3>
-
+    <% // Add Tickets form %>
     <form 
         id="add-ticket-form"
         action="/flights/<%= flight._id %>/tickets"
@@ -68,7 +86,7 @@
         <button type="submit">Add Ticket</button>
     </form>
 
-    <% // If there are tickets, display them %>
+    <% // If there are tickets, show them %>
     <% if (flight.tickets.length) { %>
         <table>
             <thead>
@@ -89,9 +107,9 @@
             </tbody>
         </table>
 
-    <% // If there are no tickets, display a message %>
-    <% } else { %>
-        <h4>No Tickets Yet</h4>
+        <% } else { %>
+            <% // Otherwise, show a message %>
+            <h4>No Tickets Yet</h4>
     <% } %>
 
 </main>
