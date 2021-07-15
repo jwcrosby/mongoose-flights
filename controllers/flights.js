@@ -107,5 +107,18 @@ function addDestinationToFlight(req, res) {
 }
 
 function deleteDestinationFromFlight(req, res) {
-    console.log("backup needed")
+
+    console.log(req.params.id)
+    console.log(req.params.destinationId)
+
+    Flight.findById(req.params.id, function(err, flight) {
+
+        flight.destinations.remove(req.params.destinationId)
+
+        flight.save(function(err) {
+            
+            res.redirect(`/flights/${flight._id}`)
+
+        })
+    })
 }
